@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">维度健康</string>
+    <string name="et_shu_email">请输入邮箱账号</string>
+    <string name="et_shu_pass">请输入密码</string>
+    <string name="forgetpass">忘记密码</string>
+    <string name="shen_zhu">申请入住</string>
+    <string name="login">登录</string>
+    <string name="next">下一步</string>
+</resources>

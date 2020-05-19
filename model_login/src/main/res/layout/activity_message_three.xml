@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/pp"
+    tools:context=".MessageThreeActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="您的个人简介"
+        android:textSize="14sp"
+        android:layout_marginLeft="30dp"
+        android:id="@+id/dd"
+        android:layout_marginTop="90dp">
+    </TextView>
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:background="@drawable/etback"
+        android:layout_marginLeft="30dp"
+        android:layout_below="@id/dd"
+        android:textSize="14sp"
+        android:id="@+id/jian"
+        android:layout_marginTop="10dp">
+    </EditText>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="您的擅长领域"
+        android:textSize="14sp"
+        android:layout_marginLeft="30dp"
+        android:id="@+id/mm"
+        android:layout_below="@id/jian"
+        android:layout_marginTop="30dp">
+    </TextView>
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:background="@drawable/etback"
+        android:layout_marginLeft="30dp"
+        android:layout_below="@id/mm"
+        android:id="@+id/shan"
+        android:textSize="14sp"
+        android:layout_marginTop="10dp">
+    </EditText>
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="36dp"
+        android:text="申请入住"
+        android:layout_marginLeft="30dp"
+        android:layout_below="@id/shan"
+        android:layout_marginTop="100dp"
+        android:id="@+id/over"
+        android:textColor="@android:color/white"
+        android:background="@drawable/buttonback">
+    </Button>
+
+</RelativeLayout>

@@ -2,19 +2,33 @@ package com.wd.model_login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.wd.model_base.Bean.JoBean;
+import com.wd.model_base.Bean.JoinBean;
+import com.wd.model_base.NetUtils;
+import com.wd.model_base.RsaCoder;
 import com.wd.model_base.base.BaseActivity;
 import com.wd.model_base.base.BasePresenter;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 public class MessageThreeActivity extends BaseActivity {
     @BindView(R2.id.jian)
@@ -40,7 +54,9 @@ public class MessageThreeActivity extends BaseActivity {
 
     @Override
     protected void getData() {
-
+        jian.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        jian.setGravity(Gravity.TOP);
+        jian.setSingleLine(false);
     }
 
     @OnClick(R2.id.over)
@@ -78,8 +94,44 @@ public class MessageThreeActivity extends BaseActivity {
         String zhicheng = sharedPreferences.getString("zhicheng", "");
         String jian1 = sharedPreferences.getString("jian", "");
         String shan1 = sharedPreferences.getString("shan", "");
+        try {
+            String pas = RsaCoder.encryptByPublicKey(pass);
+            String passw = RsaCoder.encryptByPublicKey(password);
+            JoBean joBean = new JoBean(email, yan, pas, pas, name, yiyuan, Integer.valueOf(keshi), Integer.valueOf(zhicheng), jian1, shan1);
+            Gson gson = new Gson();
+            String s = gson.toJson(joBean);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), s);
+            NetUtils.getInstance().getApis().doSettleln(requestBody)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<JoinBean>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
 
+                        }
+
+                        @Override
+                        public void onNext(JoinBean joinBean) {
+                            Intent intent = new Intent(MessageThreeActivity.this, RunnishActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
     }
+
 }

@@ -6,4 +6,15 @@
     <string name="shen_zhu">申请入住</string>
     <string name="login">登录</string>
     <string name="next">下一步</string>
+    <string name="ForgetOne_tv1">忘记密码</string>
+    <string name="ForgetOne_tv2">请输入邮箱账号</string>
+    <string name="ForgetOne_tv3">获取验证码</string>
+    <string name="ForgetOne_tv4">请输入验证码</string>
+    <string name="ForgetOne_tv5">下一步</string>
+
+
+    <string name="ForgetTwo_tv1">设置新密码</string>
+    <string name="ForgetTwo_tv2">设置新密码</string>
+    <string name="ForgetTwo_tv3">请再此确认密码</string>
+    <string name="ForgetTwo_tv4">完成</string>
 </resources>

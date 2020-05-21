@@ -1,5 +1,6 @@
 package com.wd.model_base;
 
+import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -65,7 +66,7 @@ public class NetUtils {
         builder.connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(10,TimeUnit.SECONDS)
                 .writeTimeout(10,TimeUnit.SECONDS)
-                //.addInterceptor(new HeaderInterceptor())
+                .addInterceptor(new HeaderInterceptor())
                 .addInterceptor(httpLoggingInterceptor);
         client = builder.build();
 
@@ -91,27 +92,28 @@ public class NetUtils {
         return false;
     }
 
-    public class HeaderInterceptor implements Interceptor{
+    public class HeaderInterceptor implements Interceptor {
         @Override
         public Response intercept(Chain chain) throws IOException {
             Request request = chain.request();
-            String userid = SPUtil.getString(App.getContext(), SPUtil.USERINFO_NAME, SPUtil.USERINFO_KEY_USER_ID);
-            String sessionid = SPUtil.getString(App.getContext(), SPUtil.USERINFO_NAME, SPUtil.USERINFO_KEY_SESSION_ID);
+            Log.i("xxx","1212");
+            String doctorId = SPUtil.getInstance().getDataString(App.getContext(), SPUtil.FILE_NAME, SPUtil.KEY_DOCTORID);
+            Log.i("xxx","123123");
+            String sessionId = SPUtil.getInstance().getDataString(App.getContext(), SPUtil.FILE_NAME, SPUtil.KEY_SESSIONID);
 
-            if (TextUtils.isEmpty(userid) || TextUtils.isEmpty(sessionid)){
+            if(TextUtils.isEmpty(doctorId) || TextUtils.isEmpty(sessionId)){
                 return chain.proceed(request);
             }else {
-                Request build = request.newBuilder()
-                        .addHeader("userId", userid)
-                        .addHeader("sessionId", sessionid)
-                        .addHeader("ak","0110010010000")
-                        .addHeader("Content-Type","application/x-www-form-urlencoded")
+                Request requestNew = request.newBuilder().addHeader("ak", "0110010010000")
+                        .addHeader("doctorId", doctorId)
+                        .addHeader("sessionId", sessionId)
+                        .addHeader("userId", String.valueOf(0))
+                        .addHeader("Content-Type", "application/x-www-form-urlencoded")
                         .build();
-                return chain.proceed(build);
+                return chain.proceed(requestNew);
             }
 
         }
-
     }
 
     public RequestBody getRequsetBody(List<File> files,HashMap<String,String> map){

@@ -39,6 +39,19 @@
         android:layout_marginTop="30dp">
     </TextView>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="500/500"
+        android:textSize="14sp"
+        android:textColor="@color/blue"
+        android:layout_alignRight="@id/jian"
+        android:id="@+id/tvFirst"
+        android:layout_alignBottom="@id/jian">
+    </TextView>
+
+
+
     <EditText
         android:layout_width="300dp"
         android:layout_height="100dp"
@@ -61,5 +74,16 @@
         android:textColor="@android:color/white"
         android:background="@drawable/buttonback">
     </Button>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="300/300"
+        android:textSize="14sp"
+        android:textColor="@color/blue"
+        android:layout_alignRight="@id/shan"
+        android:id="@+id/tvSecond"
+        android:layout_alignBottom="@id/shan">
+    </TextView>
 
 </RelativeLayout>

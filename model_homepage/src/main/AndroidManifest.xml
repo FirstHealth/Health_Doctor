@@ -3,7 +3,8 @@
     package="com.wd.model_homepage">
 
     <application>
-        <activity android:name=".activity.HomePageActivity"></activity>
+        <activity android:name=".activity.MineActivity"></activity>
+        <activity android:name=".activity.HomePageActivity" />
     </application>
 
 </manifest>

@@ -1,9 +1,12 @@
 package com.wd.model_base;
 
+import com.wd.model_base.Bean.CheckCodeBean;
+import com.wd.model_base.Bean.DoctorInfoBean;
 import com.wd.model_base.Bean.EmailBean;
 import com.wd.model_base.Bean.JoinBean;
 import com.wd.model_base.Bean.KeShiBean;
 import com.wd.model_base.Bean.LoginBean;
+import com.wd.model_base.Bean.ResetPwdBean;
 import com.wd.model_base.Bean.ZhiChengBean;
 
 import io.reactivex.Observable;
@@ -15,6 +18,8 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Query;
 
 /**
  * @ClassName Apis
@@ -42,5 +47,19 @@ public interface Apis {
     @POST("doctor/v1/login")
     @FormUrlEncoded
     Observable<LoginBean> doLogin(@Field("email")String email, @Field("pwd")String pwd);
+
+    //重置密码
+    @PUT("doctor/v1/resetUserPwd")
+    @FormUrlEncoded
+    Observable<ResetPwdBean> doResetPwd(@Field("email")String email, @Field("pwd1")String pwd1, @Field("pwd2")String pwd2);
+
+    //验证二维码
+    @POST("doctor/v1/checkCode")
+    @FormUrlEncoded
+    Observable<CheckCodeBean>doCheckCode(@Field("email")String email, @Field("code")String code);
+
+    //查询医生信息
+    @GET("doctor/verify/v1/findDoctorById")
+    Observable<DoctorInfoBean> FindDoctorInfo();
 
 }

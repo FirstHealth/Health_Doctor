@@ -61,6 +61,7 @@
             android:hint="@string/et_shu_pass"
             android:textSize="14sp"
             android:id="@+id/pass"
+            android:password="true"
             android:layout_marginLeft="20dp">
         </EditText>
     </LinearLayout>

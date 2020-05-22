@@ -1,2 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wd.sick_friends" />
+    package="com.wd.sick_friends">
+
+    <application>
+        <activity android:name=".activity.Sick_MessageActivity"></activity>
+        <activity android:name=".activity.Sick_HomeActivity" />
+    </application>
+
+</manifest>

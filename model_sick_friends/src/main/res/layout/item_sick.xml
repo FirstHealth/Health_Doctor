@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/ll"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="基训：面神经炎的治疗方法"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"
+        android:id="@+id/name">
+    </TextView>
+    <TextView
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:text="xxxxxxxxxxxxxxxxxxx"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        android:layout_below="@id/name"
+        android:layout_marginTop="10dp"
+        android:id="@+id/count">
+    </TextView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2018-01-01"
+        android:textSize="10sp"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="250dp"
+        android:textColor="@color/gray2"
+        android:layout_below="@id/count"
+        android:id="@+id/data">
+    </TextView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="123"
+        android:textSize="10sp"
+        android:textColor="@color/gray2"
+        android:layout_marginLeft="305dp"
+        android:id="@+id/maney"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/count">
+    </TextView>
+
+
+</RelativeLayout>

@@ -58,6 +58,15 @@ public class KeShiBean {
         private int id;
         private String pic;
         private int rank;
+        private int color = 0;
+
+        public int getColor() {
+            return color;
+        }
+
+        public void setColor(int color) {
+            this.color = color;
+        }
 
         public long getCreateTime() {
             return createTime;

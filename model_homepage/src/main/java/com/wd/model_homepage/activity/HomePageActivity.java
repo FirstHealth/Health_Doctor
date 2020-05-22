@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.wd.model_base.base.BaseActivity;
 import com.wd.model_base.base.BasePresenter;
 import com.wd.model_homepage.R;
@@ -32,6 +33,8 @@ public class HomePageActivity extends BaseActivity {
     ImageView iv;
     @BindView(R2.id.guanli)
     TextView guan;
+    @BindView(R2.id.dayi)
+    TextView dayi;
     @Override
     protected int getReasuce() {
         return R.layout.activity_home_page;
@@ -75,6 +78,13 @@ public class HomePageActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(HomePageActivity.this, MineActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        dayi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ARouter.getInstance().build("/model_sick_friends/activity/Sick_HomeActivity").navigation();
             }
         });
     }

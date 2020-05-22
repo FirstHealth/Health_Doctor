@@ -7,6 +7,8 @@ import com.wd.model_base.Bean.JoinBean;
 import com.wd.model_base.Bean.KeShiBean;
 import com.wd.model_base.Bean.LoginBean;
 import com.wd.model_base.Bean.ResetPwdBean;
+import com.wd.model_base.Bean.SickBean;
+import com.wd.model_base.Bean.SickMessageBean;
 import com.wd.model_base.Bean.ZhiChengBean;
 
 import io.reactivex.Observable;
@@ -61,5 +63,11 @@ public interface Apis {
     //查询医生信息
     @GET("doctor/verify/v1/findDoctorById")
     Observable<DoctorInfoBean> FindDoctorInfo();
+
+    @GET("doctor/sickCircle/v1/findSickCircleList")
+    Observable<SickBean> doSick(@Query("departmentId")int departmentId,@Query("page")int page,@Query("count")int count);
+
+    @GET("doctor/sickCircle/v1/findSickCircleInfo")
+    Observable<SickMessageBean> doSickMessage(@Query("sickCircleId")int sickCircleId);
 
 }

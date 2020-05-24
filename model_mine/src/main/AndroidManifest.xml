@@ -1,2 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wd.model_mine" />
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.wd.model_mine">
+<uses-permission android:name="android.permission.CAMERA"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_APN_SETTINGS"></uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+    <application
+        android:requestLegacyExternalStorage="true">
+        <activity android:name=".activity.SetHeaderActivity"></activity>
+    </application>
+
+</manifest>

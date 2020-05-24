@@ -1,12 +1,17 @@
 package com.wd.model_base;
 
 import com.wd.model_base.Bean.CheckCodeBean;
+import com.wd.model_base.Bean.ChoseBean;
+import com.wd.model_base.Bean.DoctorBean;
 import com.wd.model_base.Bean.DoctorInfoBean;
 import com.wd.model_base.Bean.EmailBean;
+import com.wd.model_base.Bean.ImagerBean;
 import com.wd.model_base.Bean.JoinBean;
 import com.wd.model_base.Bean.KeShiBean;
 import com.wd.model_base.Bean.LoginBean;
+import com.wd.model_base.Bean.PicturBean;
 import com.wd.model_base.Bean.ResetPwdBean;
+import com.wd.model_base.Bean.SearchSickBean;
 import com.wd.model_base.Bean.SickBean;
 import com.wd.model_base.Bean.SickMessageBean;
 import com.wd.model_base.Bean.ZhiChengBean;
@@ -69,5 +74,25 @@ public interface Apis {
 
     @GET("doctor/sickCircle/v1/findSickCircleInfo")
     Observable<SickMessageBean> doSickMessage(@Query("sickCircleId")int sickCircleId);
+
+    @POST("doctor/sickCircle/verify/v1/publishComment")
+    @FormUrlEncoded
+    Observable<EmailBean> doPingJia(@Field("sickCircleId")int sickCircleId,@Field("content")String content);
+
+    @GET("user/sickCircle/v1/searchSickCircle")
+    Observable<SearchSickBean> doSearch(@Query("keyWord")String keyWord);
+
+    @GET("doctor/v1/findSystemImagePic")
+    Observable<ImagerBean> doImage();
+
+    @POST("doctor/verify/v1/chooseImagePic")
+    @FormUrlEncoded
+    Observable<ChoseBean> doChose(@Field("imagePic")String imagePic);
+
+    @GET("doctor/verify/v1/findDoctorById")
+    Observable<DoctorBean> doDoctor();
+
+    @POST("doctor/verify/v1/uploadImagePic")
+    Observable<PicturBean> doPictor(@Body RequestBody body);
 
 }

@@ -3,7 +3,8 @@
     package="com.wd.sick_friends">
 
     <application>
-        <activity android:name=".activity.Sick_MessageActivity"></activity>
+        <activity android:name=".activity.SearchActivity"></activity>
+        <activity android:name=".activity.Sick_MessageActivity" />
         <activity android:name=".activity.Sick_HomeActivity" />
     </application>
 

@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.wd.model_base.Bean.KeShiBean;
@@ -28,6 +30,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.wd.sick_friends.R2.id.serach;
+
 @Route(path = "/model_sick_friends/activity/Sick_HomeActivity")
 public class Sick_HomeActivity extends BaseActivity {
 
@@ -37,6 +41,11 @@ public class Sick_HomeActivity extends BaseActivity {
 
     @BindView(R2.id.rv2)
     RecyclerView rv2;
+
+    @BindView(R2.id.serach)
+    ImageView sea;
+
+    KeShiBean.ResultBean resultBean;
     @Override
     protected int getReasuce() {
         return R.layout.activity_sick__home;
@@ -71,6 +80,7 @@ public class Sick_HomeActivity extends BaseActivity {
                         LinearLayoutManager manager = new LinearLayoutManager(Sick_HomeActivity.this, LinearLayoutManager.HORIZONTAL, false);
                         rv.setLayoutManager(manager);
                         adapter = new TVAdapter(Sick_HomeActivity.this, keShiBean.getResult());
+                        resultBean = keShiBean.getResult().get(0);
                         rv.setAdapter(adapter);
                     }
 
@@ -84,6 +94,14 @@ public class Sick_HomeActivity extends BaseActivity {
 
                     }
                 });
+
+        sea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Sick_HomeActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -12,12 +12,19 @@ import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bumptech.glide.Glide;
+import com.wd.model_base.Bean.DoctorBean;
+import com.wd.model_base.NetUtils;
 import com.wd.model_base.base.BaseActivity;
 import com.wd.model_base.base.BasePresenter;
 import com.wd.model_homepage.R;
 import com.wd.model_homepage.R2;
 
 import butterknife.BindView;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 @Route(path = "/model_homepage/activity/HomePageActivity")
 public class HomePageActivity extends BaseActivity {
@@ -66,7 +73,7 @@ public class HomePageActivity extends BaseActivity {
         this.ke.setText(ke);
 
         if (Integer.valueOf(ispic) == 1){
-
+            Glide.with(this).load(pic).into(iv);
         }else {
             iv.setImageResource(R.mipmap.meimei);
         }
@@ -87,5 +94,38 @@ public class HomePageActivity extends BaseActivity {
                 ARouter.getInstance().build("/model_sick_friends/activity/Sick_HomeActivity").navigation();
             }
         });
+    }
+
+    public void getRequest(){
+        NetUtils.getInstance().getApis().doDoctor()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<DoctorBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(DoctorBean doctorBean) {
+                        Glide.with(HomePageActivity.this).load(doctorBean.getResult().getImagePic()).into(iv);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        getRequest();
     }
 }

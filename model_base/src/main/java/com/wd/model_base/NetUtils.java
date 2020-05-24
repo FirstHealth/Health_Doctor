@@ -124,7 +124,7 @@ public class NetUtils {
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
         for (Map.Entry<String,String> entry:map.entrySet()){
-            Log.i("xxx","key = "+entry.getKey()+"value = "+entry.getValue());
+            //Log.i("xxx","key = "+entry.getKey()+"value = "+entry.getValue());
             builder.addFormDataPart(entry.getKey(),entry.getValue()+"");
         }
 

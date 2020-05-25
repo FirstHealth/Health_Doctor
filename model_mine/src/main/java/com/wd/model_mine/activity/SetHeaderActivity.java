@@ -7,9 +7,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.annotation.SuppressLint;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,9 +107,9 @@ public class SetHeaderActivity extends BaseActivity {
                         iv.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                PictureSelector
-                                        .create(SetHeaderActivity.this, PictureSelector.SELECT_REQUEST_CODE)
-                                        .selectPicture(true, 200, 200, 1, 1);
+                                Intent intent = new Intent(Intent.ACTION_PICK, null);
+                                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
+                                startActivityForResult(intent,100);
                             }
                         });
                     }
@@ -202,46 +207,84 @@ public class SetHeaderActivity extends BaseActivity {
 
     }
 
+    @SuppressLint("WrongConstant")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        final Uri uri = data.getData();
+        iv.setImageURI(uri);
 
-        if (resultCode == RESULT_OK && requestCode == PictureSelector.SELECT_REQUEST_CODE) {
+        File file = getFileByUri(uri);
+        files.add(file);
+        Log.i("xxx",file+"");
+        RequestBody body = NetUtils.getInstance().getRequsetBody(files, new HashMap<String, String>());
+        NetUtils.getInstance().getApis().doPictor(body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<PicturBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-            String picturePath = data.getStringExtra(PictureSelector.PICTURE_PATH);
-            Toast.makeText(this, ""+picturePath, Toast.LENGTH_SHORT).show();
-            File file = new File(picturePath);
-            files.add(file);
+                    }
 
-            HashMap<String, String> hashMap = new HashMap<>();
+                    @Override
+                    public void onNext(PicturBean picturBean) {
 
-            RequestBody requsetBody = NetUtils.getInstance().getRequsetBody(files, hashMap);
+                    }
 
-            NetUtils.getInstance().getApis().doPictor(requsetBody)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<PicturBean>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
+                    @Override
+                    public void onError(Throwable e) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onNext(PicturBean picturBean) {
+                    @Override
+                    public void onComplete() {
 
-                        }
+                    }
+                });
 
-                        @Override
-                        public void onError(Throwable e) {
+    }
 
-                        }
+    public File getFileByUri(Uri uri) {
+        String path = null;
+        if ("file".equals(uri.getScheme())) {
+            path = uri.getEncodedPath();
+            if (path != null) {
+                path = Uri.decode(path);
+                ContentResolver cr = getContentResolver();
+                StringBuffer buff = new StringBuffer();
+                buff.append("(").append(MediaStore.Images.ImageColumns.DATA).append("=").append("'" + path + "'").append(")");
+                Cursor cur = cr.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, new String[] { MediaStore.Images.ImageColumns._ID, MediaStore.Images.ImageColumns.DATA }, buff.toString(), null, null);
+                int index = 0;
+                int dataIdx = 0;
+                for (cur.moveToFirst(); !cur.isAfterLast(); cur.moveToNext()) {
+                    index = cur.getColumnIndex(MediaStore.Images.ImageColumns._ID);
+                    index = cur.getInt(index);
+                    dataIdx = cur.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                    path = cur.getString(dataIdx);				}
+                cur.close();
+                if (index == 0) {
 
-                        @Override
-                        public void onComplete() {
-
-                        }
-                    });
-
+                } else {
+                    Uri u = Uri.parse("content://media/external/images/media/" + index);
+                    System.out.println("temp uri is :" + u);
+                }
+            }
+            if (path != null) {
+                return new File(path);
+            }
+        } else if ("content".equals(uri.getScheme())) {
+            String[] proj = { MediaStore.Images.Media.DATA };
+            Cursor cursor = getContentResolver().query(uri, proj, null, null, null);
+            if (cursor.moveToFirst()) {
+                int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                path = cursor.getString(columnIndex);
+            }
+            cursor.close();
+            return new File(path);
+        } else {
+            Log.i("xxx", "Uri Scheme:" + uri.getScheme());
         }
+        return null;
     }
 }

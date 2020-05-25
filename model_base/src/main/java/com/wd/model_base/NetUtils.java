@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -117,9 +119,9 @@ public class NetUtils {
     }
 
     public RequestBody getRequsetBody(List<File> files,HashMap<String,String> map){
-        if (map.size() < 1){
-            return null;
-        }
+//        if (map.size() < 1){
+//            return null;
+//        }
 
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
@@ -129,7 +131,7 @@ public class NetUtils {
         }
 
         for (int i = 0; i <files.size(); i++){
-            builder.addFormDataPart("image",files.get(i).getName(),RequestBody.create(MediaType.parse("image/jepg"),files.get(i)));
+            builder.addFormDataPart("imagePic",files.get(i).getName(),RequestBody.create(MediaType.parse("image/jpg"),files.get(i)));
         }
 
         return builder.build();
@@ -169,5 +171,62 @@ public class NetUtils {
         ((ViewGroup) rootView).addView(linearLayout);
     }
 
+    public interface ICallBack{
+        void onSuccess(String s);
+        void onError(String s);
+    }
 
+    public void doPostImg(String url, Map<String,String> header, HashMap<String,String> map, File file, final ICallBack callBack){
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/jpg"), file);
+
+        MultipartBody.Builder mUBuilder = new MultipartBody.Builder();
+
+        mUBuilder.setType(MultipartBody.FORM).addFormDataPart("image",file.getName(),requestBody);
+
+        for (HashMap.Entry<String,String> entry:map.entrySet()){
+            mUBuilder.addFormDataPart(entry.getKey(),entry.getValue());
+        }
+
+        Request.Builder builder = new Request.Builder();
+        for (Map.Entry<String,String> entry:header.entrySet()){
+            builder.addHeader(entry.getKey(),entry.getValue());
+        }
+
+        Request request = builder.url(url)
+                .post(mUBuilder.build())
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (callBack!=null){
+                            callBack.onSuccess("请求失败");
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()){
+                    final String str = response.body().string();
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (callBack!=null){
+                                callBack.onSuccess(str);
+                            }
+                        }
+                    });
+                }else {
+                    if (callBack!=null){
+                        callBack.onError("请求失败");
+                    }
+                }
+            }
+        });
+    }
 }

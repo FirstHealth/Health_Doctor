@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/back"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="@dimen/dp_50"
+        android:src="@color/blue"
+        android:layout_marginTop="@dimen/dp_20"
+        android:id="@+id/head">
+    </ImageView>
+
+    <TextView
+        android:layout_width="@dimen/dp_220"
+        android:layout_height="wrap_content"
+        android:text="面神经闫的治疗过程"
+        android:textSize="14sp"
+        android:textColor="@color/gray"
+        android:layout_toRightOf="@id/head"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginLeft="@dimen/dp_40"
+        android:id="@+id/name">
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="主要症状：面神经炎"
+        android:textSize="12sp"
+        android:textColor="@color/gray"
+        android:layout_below="@id/name"
+        android:layout_toRightOf="@id/head"
+        android:layout_marginLeft="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_10"
+        android:id="@+id/zheng">
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="采纳时间"
+        android:textSize="12sp"
+        android:textColor="@color/gray"
+        android:layout_below="@id/zheng"
+        android:layout_toRightOf="@id/head"
+        android:layout_marginLeft="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_10"
+        android:id="@+id/time">
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="张三"
+        android:textSize="14sp"
+        android:textColor="@color/gray"
+        android:layout_below="@id/head"
+        android:layout_marginTop="@dimen/dp_10"
+        android:id="@+id/na">
+    </TextView>
+
+    <TextView
+        android:layout_width="@dimen/dp_300"
+        android:layout_height="2dp"
+        android:background="@color/gray1"
+        android:layout_below="@id/na"
+        android:id="@+id/line"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_centerHorizontal="true">
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="我的建议"
+        android:textSize="14sp"
+        android:textColor="@color/gray"
+        android:layout_below="@id/line"
+        android:layout_marginTop="@dimen/dp_16"
+        android:id="@+id/jian">
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="xxxxxx"
+        android:textColor="@color/gray"
+        android:layout_below="@id/jian"
+        android:textSize="12sp"
+        android:layout_marginTop="@dimen/dp_10"
+        android:id="@+id/jianyi">
+    </TextView>
+
+</RelativeLayout>

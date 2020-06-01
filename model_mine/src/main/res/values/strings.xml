@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">model_mine</string>
+    <string name="wallet_tv1">我的钱包</string>
+    <string name="wallet_tv2">我的H币</string>
+    <string name="wallet_tv3">(满20000可提现)</string>
+    <string name="wallet_tv4">提现</string>
+    <string name="wallet_tv5">去绑定</string>
+    <string name="wallet_tv6">查看绑定</string>
+    <string name="bind_tv1">绑定信息</string>
+    <string name="bind_tv2">身份证</string>
+    <string name="bind_tv3">银行卡</string>
+    <string name="bind_tv4">如需更改银行卡信息  请致电000-5967432</string>
+
+    <string name="bind_tv5">绑定身份证>></string>
+    <string name="bind_tv6">绑定银行卡>></string>
+
+    <string name="bind_tv10">点击拍摄/上传银行卡正面</string>
+    <string name="bind_tv11">点击拍摄/上传人面像</string>
+    <string name="bind_tv12">点击拍摄/上传国徽面</string>
+    <string name="bind_tv13">下一步</string>
+    <string name="bind_tv14">确定</string>
+    <string name="bind_tv15">绑定银行卡</string>
+    <string name="bind_tv16">绑定身份证</string>
 </resources>

@@ -10,7 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.wd.model_base.App;
@@ -40,6 +42,10 @@ public class MineActivity extends BaseActivity {
     Button b2;
     @BindView(R2.id.b1)
     Button b1;
+    @BindView(R2.id.l3)
+    LinearLayout l3;
+    @BindView(R2.id.l2)
+    LinearLayout l2;
     @Override
     protected int getReasuce() {
         return R.layout.activity_mine;
@@ -117,6 +123,20 @@ public class MineActivity extends BaseActivity {
             }
         });
 
+
+        l3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ARouter.getInstance().build("/model_mine/activity/AcceptedActivity").navigation();
+            }
+        });
+
+        l2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ARouter.getInstance().build("/model_mine/activity/MypurseActivity").navigation();
+            }
+        });
     }
 
     public void getRequest(){

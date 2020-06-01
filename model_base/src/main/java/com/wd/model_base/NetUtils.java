@@ -137,6 +137,25 @@ public class NetUtils {
         return builder.build();
     }
 
+    public RequestBody getRequsetBody1(List<File> files,HashMap<String,String> map){
+//        if (map.size() < 1){
+//            return null;
+//        }
+
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+        for (Map.Entry<String,String> entry:map.entrySet()){
+            //Log.i("xxx","key = "+entry.getKey()+"value = "+entry.getValue());
+            builder.addFormDataPart(entry.getKey(),entry.getValue()+"");
+        }
+
+        for (int i = 0; i <files.size(); i++){
+            builder.addFormDataPart("image",files.get(i).getName(),RequestBody.create(MediaType.parse("image/jpg"),files.get(i)));
+        }
+
+        return builder.build();
+    }
+
     public void scaleImageView(final View rootView, Context context, float scaleSzie, Bitmap bp) {
 
         Matrix matrix = new Matrix();

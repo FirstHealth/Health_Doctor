@@ -42,6 +42,8 @@ public class HomePageActivity extends BaseActivity {
     TextView guan;
     @BindView(R2.id.dayi)
     TextView dayi;
+    @BindView(R2.id.wenzhen)
+    TextView wenzhen;
     @Override
     protected int getReasuce() {
         return R.layout.activity_home_page;
@@ -92,6 +94,12 @@ public class HomePageActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 ARouter.getInstance().build("/model_sick_friends/activity/Sick_HomeActivity").navigation();
+            }
+        });
+        wenzhen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ARouter.getInstance().build("/model_consultation/activity/ConsultationActivity").navigation();
             }
         });
     }

@@ -1,2 +1,2 @@
-include ':app', ':model_login', ':model_base', ':model_mine', ':model_homepage', ':model_consultation', ':model_sick_friends'
+include ':app', ':model_login', ':model_base', ':model_mine', ':model_homepage', ':model_consultation', ':model_sick_friends', ':ocr'
 rootProject.name='Health_Doctor'

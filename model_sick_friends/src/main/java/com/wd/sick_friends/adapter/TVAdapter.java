@@ -48,6 +48,7 @@ public class TVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         ((ViewHolder)holder).tv.setText(list.get(position).getDepartmentName());
+
         if (list.get(position).getColor() == 0) {
             ((ViewHolder) holder).tv.setTextColor(R.color.gray2);
         }else {
